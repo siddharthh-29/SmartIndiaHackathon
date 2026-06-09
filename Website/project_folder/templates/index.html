@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSM Map Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+     <!-- Navigation Bar -->
+     <nav class="top-nav">
+        <div class="nav-content">
+            <div class="nav-logo">
+                <img src="{{ url_for('static', filename='images/logo copy.png') }}" alt="Company Logo">
+            </div>
+            <h1 class="nav-heading">OSM Map Generator</h1>
+            <ul class="nav-links">
+                <li><a href="#mapContainer">Original Map</a></li>
+                <li><a href="#snappedMapContainer">Snapped Map</a></li>
+                <li><a href="#predictedMapContainer">Predicted Map</a></li>
+                <li><a href="#tollCalculationContainer">Toll Calculation</a></li>
+                <li><a href="#statisticsContainer">Vehicle Features</a></li>
+                <li><a href="#meet-the-team">Meet the Team</a></li>
+            </ul>
+        </div>
+    </nav>
+  <!-- Hero Section -->
+  <!-- Hero Section -->
+  <div class="hero">
+    <img src="{{ url_for('static', filename='images/slide1.jpg') }}" alt="Hero Image" class="hero-image">
+</div>
+
+    <h1>Upload CSV to Generate OSM Map</h1>
+
+    <!-- File Upload Section -->
+    <div class="file-upload">
+        <h3>Choose CSV file</h3>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <div class="file-input-container">
+                <input type="file" name="file" id="csvFile" accept=".csv">
+                <label for="csvFile" class="file-input-label">
+                    <i class="fas fa-file-csv"></i> Choose a CSV file
+                </label>
+            </div>
+            <button type="submit" class="upload-btn">Upload and Generate Map</button>
+            <div id="progressContainer" class="progress-container" style="display: none;">
+                <div id="progressBar" class="progress-bar"></div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Original Map Section -->
+    <div id="mapContainer" class="map-container">
+        <h2>Original Map</h2>
+        <div id="map" class="map"></div>
+    </div>
+
+    <!-- Snapped Map Generation Section -->
+<div class="generate-snap-section">
+    <h2>Generate Snapped Map</h2>
+    <input type="file" id="fileInput" name="file" />
+    <div class="snap-button-container">
+        <button id="generateSnappedMapBtn" class="snap-button">Generate Snapped Map</button>
+    </div>
+</div>
+
+<!-- Snapped Map Section -->
+<div id="snappedMapContainer" class="map-container" style="display:none;">
+    <h2>Snapped Map</h2>
+    <div id="snappedMap" class="map"></div>
+</div>
+
+    <div class="generate-classified-section">
+        <h2>Generate Classified Road Map</h2>
+        <div class="classify-button-container">
+            <button id="generateClassifiedMapBtn" class="classify-button">Generate Classified Road Map</button>
+        </div>
+    </div>
+
+    <!-- Classified Map Section -->
+    <div id="classifiedMapContainer" class="map-container" style="display: none;">
+        <h2>Classified Road Map</h2>
+        <div id="classifiedMap" class="map"></div>
+    </div>
+
+    <div class="predict-road-types-section">
+        <h2>Predict Unknown Road Types</h2>
+        <div class="predict-button-container">
+            <button id="predictRoadTypesBtn" class="predict-button">Predict Road Types</button>
+        </div>
+    </div>
+
+    <!-- Predicted Road Types Map Section -->
+    <div id="predictedMapContainer" class="map-container" style="display: none;">
+        <h2>Predicted Road Types Map</h2>
+        <div id="predictedMap" class="map"></div>
+    </div>
+
+    
+
+    <div id="statusMessage"></div>
+
+    <div class="calculate-statistics-section">
+        <h2>Calculate Journey Statistics</h2>
+        <div class="calculate-button-container">
+            <button id="calculateStatisticsBtn" class="calculate-button">Calculate Statistics</button>
+        </div>
+    </div>
+
+    <!-- Journey Statistics Section -->
+    <div id="statisticsContainer" class="statistics-container" style="display: none;">
+        <h2>Vehicle Features</h2>
+        <div id="statisticsCards" class="statistics-cards"></div>
+    </div>
+
+    <!-- Toll Calculation Section -->
+    <div id="tollCalculationContainer" class="toll-calculation-container">
+        <h2>Toll Calculation</h2>
+        <div class="toll-inputs">
+            <div class="vehicle-type-container">
+                <label for="vehicleType">Select Vehicle Type:</label>
+                <select id="vehicleType">
+                    <option value="">Choose a vehicle type</option>
+                    <option value="0.65">Car, Jeep, Van or Light Motor Vehicle</option>
+                    <option value="1.05">Light Commercial Vehicle</option>
+                    <option value="2.20">Bus or Truck (Two Axel)</option>
+                    <option value="2.40">Three-axle commercial vehicles</option>
+                    <option value="3.45">Heavy Construction Machinery(HCM) or Earth Moving Equipment (EME) or Multi Axle Vehicle (MAV) (four to six axles)</option>
+                    <option value="4.20">Oversized Vehicles (seven or more axles)</option>
+                </select>
+            </div>
+            <div class="tariff-display">
+                <label>Tariff per km:</label>
+                <span id="tariffDisplay">-</span>
+            </div>
+        </div>
+        <button id="calculateTollBtn" class="calculate-toll-button">Calculate Toll</button>
+        <div id="tollResult" class="toll-result"></div>
+    </div>
+
+     <!-- Meet the Team Section -->
+     <!-- Meet the Team Section -->
+<section id="meet-the-team" class="meet-the-team-container">
+    <div class="container">
+        <h2>Meet the Team</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/team-member-1.jpg') }}" alt="Team Member 1">
+                <h3>Pranjal Soni</h3>
+            </div>
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/team-member-2.jpg') }}" alt="Team Member 2">
+                <h3>Pulkit Garg</h3>
+            </div>
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/team-member-3.jpg') }}" alt="Team Member 3">
+                <h3>Akash Iyer</h3>
+            </div>
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/team-member-4.jpg') }}" alt="Team Member 4">
+                <h3>Utkarsh Sharma</h3>
+            </div>
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/team-member-5.jpg') }}" alt="Team Member 5">
+                <h3>Kahaan Soni</h3>
+            </div>
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/team-member-6.jpg') }}" alt="Team Member 6">
+                <h3>Siddharth Sivapuram</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+  <!-- Footer Section -->
+  <footer id="footer" class="footer">
+    <div class="footer-content">
+        <div class="footer-logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Company Logo">
+        </div>
+        <nav class="footer-links">
+            <button class="nav-button" data-target="hero">Home</button>
+            <button class="nav-button" data-target="mapContainer">Original Map</button>
+            <button class="nav-button" data-target="snappedMapContainer">Snapped Map</button>
+            <button class="nav-button" data-target="predictedMapContainer">Predicted Map</button>
+            <button class="nav-button" data-target="statisticsContainer">Statistics</button>
+            <button class="nav-button" data-target="tollCalculationContainer">Toll Calculation</button>
+            <button class="nav-button" data-target="meet-the-team">Team</button>
+        </nav>
+    </div>
+    <div class="footer-text">
+        <p>&copy; 2023 OSM Map Generator. All rights reserved.</p>
+    </div>
+</footer>
+
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
