@@ -1,6 +1,6 @@
 # Switching Hidden Markov Model for Vehicle Movement Tracking
 
-This repository contains the implementation of a **vehicle movement tracking system** using **Switching Hidden Markov Models (HMM)**. The project integrates **OpenStreetMap**, **OSRM**, and advanced AI/ML techniques to distinguish vehicular movement on **highways**, **service roads**, and **flyovers** from coarse GNSS data.The detailed content of the project is avaiable in this Drive (https://drive.google.com/drive/folders/1_oNnTAJcahV3ncNSAKwsDxIfSOmAFOma).
+This repository contains the implementation of a **vehicle movement tracking system** using **Switching Hidden Markov Models (HMM)**. The project integrates **OpenStreetMap**, **OSRM**, and advanced AI/ML techniques to distinguish vehicular movement on **highways**, **service roads**, and **flyovers** from coarse GNSS data. The detailed content of the project is available in this [Google Drive folder](https://drive.google.com/drive/folders/1_oNnTAJcahV3ncNSAKwsDxIfSOmAFOma).
 
 ## Problem Statement
 The challenge was to develop a **map-matching algorithm** using **AI-ML techniques** to:
@@ -14,7 +14,7 @@ The challenge was to develop a **map-matching algorithm** using **AI-ML techniqu
    - Input data includes coarse GNSS positions, road names, and vehicle features (latitude, longitude, speed, height, etc.).
 
 2. **Map-Matching Algorithm**:
-   - **Snap to Road**: Snaps GNSS coordinates to the nearest road using **OSRM API**.
+   - **Snap to Road**: Snaps GNSS coordinates to the nearest road using the **OSRM API**.
    - **Road Classification**: Classifies roads as highway, service, or unknown based on snapped coordinates.
 
 3. **AI/ML Modeling**:
@@ -77,46 +77,3 @@ The challenge was to develop a **map-matching algorithm** using **AI-ML techniqu
 - Install required libraries:
   ```bash
   pip install -r requirements.txt
-
-## How to Run
-
-1. **Run the Flask App**:
-   - Start the backend:
-     ```bash
-     python app.py
-     ```
-   - Access the web app at: [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
-
-2. **Upload Files**:
-   - Upload `.pos` and `.kml` datasets on the web app.
-
-3. **View Results**:
-   - Predicted trajectories are displayed as maps.
-   - Journey statistics are calculated and shown on the web app.
-
----
-
-## Outputs
-
-### Predicted Trajectories:
-- Visualized as maps showing transitions between highways, service roads, and flyovers.
-
-### Journey Statistics:
-- **Total Distance**: The total distance traveled.
-- **Total Time**: The total time spent on the journey.
-- **Average Speed**: The vehicle's average speed throughout the journey.
-- **Average Acceleration**: The vehicle's average acceleration.
-- **GNSS-based Toll Calculation**: Automatic toll calculation based on highway distance.
-
----
-
-## Applications
-
-1. **Automated Tolling**:
-   - Automatically calculates tolls based on distance traveled on highways.
-
-2. **Insurance Analysis**:
-   - Provides insights into driving behavior for insurance companies to personalize policies.
-
-3. **Route Analytics**:
-   - Improves transportation planning and monitoring by analyzing route usage and driving patterns.
